@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace AspNetCore.API.Web.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
+    [Produces("application/json")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -23,6 +24,10 @@ namespace AspNetCore.API.Web.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Get all weather forecast
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AspNetCore.API.Web</name>
+    </assembly>
+    <members>
+        <member name="M:AspNetCore.API.Web.Controllers.WeatherForecastController.Get">
+            <summary>
+            Get all weather forecast
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
