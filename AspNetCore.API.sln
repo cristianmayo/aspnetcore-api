@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1EEF6D12-C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.API.Client", "src\AspNetCore.API.Client\AspNetCore.API.Client.csproj", "{89CD9C73-9E70-4D17-8B6A-A2712DB6A1D8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C8C136E7-BED0-4CC3-A9C0-89FFA56DAD9A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{1322D11A-C86C-4665-A328-6F6DA3D19372}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,18 @@ Global
 		{89CD9C73-9E70-4D17-8B6A-A2712DB6A1D8}.Release|x64.Build.0 = Release|Any CPU
 		{89CD9C73-9E70-4D17-8B6A-A2712DB6A1D8}.Release|x86.ActiveCfg = Release|Any CPU
 		{89CD9C73-9E70-4D17-8B6A-A2712DB6A1D8}.Release|x86.Build.0 = Release|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Debug|x64.Build.0 = Debug|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Debug|x86.Build.0 = Debug|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Release|x64.ActiveCfg = Release|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Release|x64.Build.0 = Release|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Release|x86.ActiveCfg = Release|Any CPU
+		{1322D11A-C86C-4665-A328-6F6DA3D19372}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +78,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4FA9CF72-EFB8-4B75-8B69-045EC89EBEE3} = {D9B37546-B0EC-413A-8BCA-D3FD4DE9357F}
 		{89CD9C73-9E70-4D17-8B6A-A2712DB6A1D8} = {D9B37546-B0EC-413A-8BCA-D3FD4DE9357F}
+		{1322D11A-C86C-4665-A328-6F6DA3D19372} = {C8C136E7-BED0-4CC3-A9C0-89FFA56DAD9A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23C42FFA-44EA-4464-AC3C-9C2E16D752ED}
