@@ -1,0 +1,61 @@
+﻿{
+  "x-generator": "NSwag v13.8.2.0 (NJsonSchema v10.2.1.0 (Newtonsoft.Json v9.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "AspNetCore.API.Web",
+    "version": "1.0.0"
+  },
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "summary": "Get all weather forecast",
+        "operationId": "WeatherForecast_Get",
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WeatherForecast"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "WeatherForecast": {
+      "type": "object",
+      "required": [
+        "date",
+        "temperatureC",
+        "temperatureF"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "temperatureC": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "temperatureF": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
