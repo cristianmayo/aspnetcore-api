@@ -13,8 +13,10 @@
 
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DocumentationFile>C:\_github\cristianmayo\aspnetcore-api\src\AspNetCore.API.Web\AspNetCore.API.Web.xml</DocumentationFile>
+    <DocumentationFile>AspNetCore.API.Web.xml</DocumentationFile>
     <NoWarn>$(NoWarn);1591;0649;0169;1591;1138;</NoWarn>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <NeutralLanguage />
   </PropertyGroup>
 
   <ItemGroup>

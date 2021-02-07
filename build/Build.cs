@@ -36,17 +36,19 @@ class Build : NukeBuild
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
-    AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
+    AbsolutePath PackageDirectory => RootDirectory / "artifacts/package";
+    AbsolutePath PublishDirectory => RootDirectory / "artifacts/publish";
 
     Target Clean => _ => _
         .Executes(() => {
             SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
             TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            EnsureCleanDirectory(ArtifactsDirectory);
+            EnsureCleanDirectory(PublishDirectory);
+            EnsureCleanDirectory(PackageDirectory);
         });
 
     Target Restore => _ => _
-        .DependsOn(Clean)
+        .Before(Clean)
         .Executes(() => {
             DotNetRestore(_ => _
                 .SetProjectFile(Solution));
@@ -66,13 +68,13 @@ class Build : NukeBuild
         .Executes(() => {
             var nswagRootDirectory = SourceDirectory / "AspNetCore.API.Web";
             NSwagExecuteDocument(x => x
-                .SetWorkingDirectory(nswagRootDirectory)
-                .SetInput(nswagRootDirectory / "AspNetCore.API.Web.Client.nswag")
+                .SetWorkingDirectory(nswagRootDirectory.ToString())
+                .SetInput(nswagRootDirectory.ToString() + "/AspNetCore.API.Web.Client.nswag")
                 .SetNSwagRuntime("NetCore31"));
         });
 
     Target Test => _ => _
-        .After(UpdateClient)
+        .DependsOn(UpdateClient)
         .Executes(() => {
             DotNetTest(s => s
                 .SetProjectFile(Solution)
@@ -87,7 +89,7 @@ class Build : NukeBuild
             DotNetPublish(s => s
                 .SetProject(Solution)
                 .SetConfiguration(Configuration)
-                .SetOutput(ArtifactsDirectory / "publish")
+                .SetOutput(PublishDirectory)
                 .EnableNoRestore());
         });
 
@@ -96,7 +98,7 @@ class Build : NukeBuild
         .Executes(() => {
             DotNetPack(s => s
                 .SetProject(Solution)
-                .SetOutputDirectory(ArtifactsDirectory / "package")
+                .SetOutputDirectory(PackageDirectory)
                 .SetIncludeSymbols(true)
                 .SetConfiguration(Configuration)
                 .EnableNoRestore()
