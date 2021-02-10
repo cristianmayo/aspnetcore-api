@@ -1,17 +1,19 @@
 using System;
-using System.Linq;
+using System.IO;
 using Nuke.Common;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
+using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
+using Nuke.Docker;
 using Nuke.NSwag;
-using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
+using static Nuke.Docker.DockerTasks;
 using static Nuke.NSwag.NSwagTasks;
 
 [CheckBuildProjectConfigurations]
@@ -33,11 +35,16 @@ class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
+    [GitVersion] readonly GitVersion GitVersion;
+
+    //Must be lowercase
+    private string CONTAINER_IMAGE_NAME = "aspnetcore.api.web";
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath TestsDirectory => RootDirectory / "tests";
     AbsolutePath PackageDirectory => RootDirectory / "artifacts/package";
     AbsolutePath PublishDirectory => RootDirectory / "artifacts/publish";
+    AbsolutePath DockerFile => RootDirectory / "Dockerfile";
 
     Target Clean => _ => _
         .Executes(() => {
@@ -103,5 +110,35 @@ class Build : NukeBuild
                 .SetConfiguration(Configuration)
                 .EnableNoRestore()
                 .EnableNoBuild());
+        });
+
+    Target BuildDocker => _ => _
+        .Executes(() =>
+        {
+            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var dockerArtifacts = Path.Combine(PublishDirectory, "docker");
+
+            EnsureExistingDirectory(dockerArtifacts);
+
+            var tagName = $"{CONTAINER_IMAGE_NAME}:{GitVersion.NuGetVersionV2}";
+
+            DockerBuild(s => s.SetFile(DockerFile)
+                .AddLabel($"version={GitVersion.NuGetVersionV2}")
+                .AddLabel($"branch={GitRepository.Branch}")
+                .AddTag(tagName)
+                .AddBuildArg($"AssemblyVersion={GitVersion.AssemblySemVer}")
+                .AddBuildArg($"FileVersion={GitVersion.AssemblySemFileVer}")
+                .AddBuildArg($"InformationalVersion={GitVersion.InformationalVersion}")
+                .SetPath(RootDirectory));
+        });
+
+    Target DockerRun => _ => _
+        .Executes(() =>
+        {
+            DockerContainerRun(s => s.SetPublish("9000:80")
+                .SetImage($"{CONTAINER_IMAGE_NAME}:{GitVersion.NuGetVersionV2}")
+                .SetDetach(true)
+                .SetName(CONTAINER_IMAGE_NAME)
+            );
         });
 }
