@@ -13,12 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_config", "_config", "{9EF9
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_docs", "_docs", "{1EEF6D12-C202-4A5B-B79F-7B4B9072AD5F}"
-	ProjectSection(SolutionItems) = preProject
-		license = license
-		readme.md = readme.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C8C136E7-BED0-4CC3-A9C0-89FFA56DAD9A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{1322D11A-C86C-4665-A328-6F6DA3D19372}"
@@ -28,6 +22,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.API.Tests.Unit", "tests\AspNetCore.API.Tests.Unit\AspNetCore.API.Tests.Unit.csproj", "{D657C1E5-86CE-4D8C-A208-9292F523B275}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.API.Tests.Integration", "tests\AspNetCore.API.Tests.Integration\AspNetCore.API.Tests.Integration.csproj", "{60432246-3D94-43F7-A73E-E93BE322A85E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1DFF58A7-01AA-4CDE-9F22-F540E5B27D2D}"
+	ProjectSection(SolutionItems) = preProject
+		docs\index.md = docs\index.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
