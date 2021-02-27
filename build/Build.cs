@@ -141,4 +141,23 @@ class Build : NukeBuild
                 .SetName(CONTAINER_IMAGE_NAME)
             );
         });
+
+    Target DockerStop => _ => _
+        .Executes(() =>
+        {
+            DockerContainerStop(s => s.SetContainers(CONTAINER_IMAGE_NAME));
+        });
+
+    Target DockerStart => _ => _
+        .Executes(() =>
+        {
+            DockerContainerStart(s => s.SetContainers(CONTAINER_IMAGE_NAME));
+        });
+
+    Target DockerUninstall => _ => _
+        .DependsOn(DockerStop)
+        .Executes(() =>
+        {
+            DockerContainerRm(s => s.SetContainers(CONTAINER_IMAGE_NAME));
+        });
 }
