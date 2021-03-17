@@ -1,0 +1,311 @@
+{
+  "x-generator": "NSwag v13.10.7.0 (NJsonSchema v10.3.9.0 (Newtonsoft.Json v12.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "AspNetCore.API",
+    "description": "Sample RESTful Web API using ASP.NET Framework.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/auth/check": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_CheckClientAndUserAuthorization",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthRequest"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AuthCheckResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_LoginClientAndUser",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LoginResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_LogoutClientAndUser",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthRequest"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/user": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_GetAllApplicationUsers",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ApplicationUser"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/{userName}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_GetuserIdByUsername",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "name": "userName",
+            "in": "path",
+            "required": true,
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AuthCheckResponse": {
+      "type": "object",
+      "required": [
+        "AuthCheckResult"
+      ],
+      "properties": {
+        "AuthCheckResult": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "AuthorizedClient": {
+          "type": "boolean"
+        },
+        "ValidUsername": {
+          "type": "boolean"
+        },
+        "UserId": {
+          "type": "string",
+          "format": "guid"
+        }
+      }
+    },
+    "AuthRequest": {
+      "type": "object",
+      "required": [
+        "ClientId",
+        "UserId"
+      ],
+      "properties": {
+        "ClientId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "UserId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "UserName": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginResponse": {
+      "type": "object",
+      "required": [
+        "AuthValidationResult",
+        "StatusCode"
+      ],
+      "properties": {
+        "AuthValidationResult": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "StatusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "StatusMessage": {
+          "type": "string"
+        },
+        "AccessToken": {
+          "type": "string"
+        },
+        "AccessExpiration": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "LoginRequest": {
+      "type": "object",
+      "required": [
+        "ClientId",
+        "UserId"
+      ],
+      "properties": {
+        "ClientId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "UserId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "Password": {
+          "type": "string"
+        }
+      }
+    },
+    "ApplicationUser": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/User"
+        },
+        {
+          "type": "object",
+          "required": [
+            "UserId"
+          ],
+          "properties": {
+            "UserId": {
+              "type": "string",
+              "format": "guid"
+            }
+          }
+        }
+      ]
+    },
+    "User": {
+      "type": "object",
+      "x-abstract": true,
+      "required": [
+        "UserId"
+      ],
+      "properties": {
+        "UserId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "UserName": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        },
+        "EmailAddress": {
+          "type": "string",
+          "format": "email"
+        },
+        "PhoneNumber": {
+          "type": "string",
+          "format": "phone"
+        }
+      }
+    }
+  }
+}
